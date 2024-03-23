@@ -36,8 +36,7 @@ class AddReview extends StatelessWidget {
               List<MyCart> items = new List<MyCart>.from(carts);
               Get.to(MyAgriCartPage(cartItems: items));
 
-            }, icon: Icon(Icons.add_shopping_cart,color: AgriColors.primaryColor,)),
-          ],
+            }, icon: Icon(Icons.add_shopping_cart,color: AgriColors.primaryColor,))],
         title: Text("Add Reviews"),
     ),
     drawer: CustomerNavBar(),

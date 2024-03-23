@@ -25,12 +25,12 @@ class ProductCustomerReview extends StatelessWidget {
           IconButton(onPressed: () {
 
             _productController.initalRefreshFunctions();
-        _productController.fetchCartItem();
-         var carts = _productController.myCart;
-        List<MyCart> items = new List<MyCart>.from(carts);
-        Get.to(MyAgriCartPage(cartItems: items));
+            _productController.fetchCartItem();
+            var carts = _productController.myCart;
+            List<MyCart> items = new List<MyCart>.from(carts);
+            Get.to(MyAgriCartPage(cartItems: items));
 
-        }, icon: Icon(Icons.add_shopping_cart,color: AgriColors.primaryColor,))],
+          }, icon: Icon(Icons.add_shopping_cart,color: AgriColors.primaryColor,))],
         title: Text("Reviews"),),
       drawer: CustomerNavBar(),
       body: ListView(

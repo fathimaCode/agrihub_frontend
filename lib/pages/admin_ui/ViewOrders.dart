@@ -16,7 +16,9 @@ class ViewOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("View Orders"),),
+      appBar: AppBar(title: Text("View Orders"),
+
+      ),
       drawer: AdminNavBar(),
       body: Obx(
             () {
@@ -46,14 +48,34 @@ class ViewOrders extends StatelessWidget {
                     child: ListTile(
                       title: Text(orders.purchaseid),
                       subtitle: Text("purchased at ${orders.purchased_at}"),
-                      trailing:orders.status=="request"?ElevatedButton(onPressed:(){
-                        _orderController.acceptOrderByAdmin(orders.purchaseid);
+                      trailing:orders.status=="request"?ElevatedButton(onPressed:() async{
+                       var out = await _orderController.acceptOrderByAdmin(orders.purchaseid);
+                        _productController.fetchOrderListToAdmin();
+                        if(out){
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.success,
+                            animType: AnimType.topSlide,
+                            showCloseIcon: true,
+                            title: "Success",
+                            desc: "Order is Confirmed",
+                            btnOkColor: Colors.green,
+                            btnOkOnPress: () => Get.to(ViewOrders()),
+                          ).show();
 
-                        _orderController.initalRefreshFunctions();
-                        Get.snackbar("Success", "Order Confirmed",snackPosition: SnackPosition.TOP,backgroundColor: AgriColors.primaryColor,colorText: AgriColors.whiteColor);
-                        Future.delayed(Duration(seconds: 2), () {
-                          Get.off(ViewOrders());
-                        });
+                        }
+                        else{
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.topSlide,
+                            showCloseIcon: true,
+                            title: "Error",
+                            desc: "Something went wrong",
+                            btnOkColor: Color.fromARGB(255, 175, 76, 76),
+                            btnOkOnPress: () => Get.to(ViewOrders()),
+                          ).show();
+                        }
                       } ,child: Text("Accept"),):Text(orders.status),
                     ),
                   ),

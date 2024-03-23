@@ -9,6 +9,8 @@ import '../../Common/CustomerNavBar.dart';
 import '../../Constant/agri_color.dart';
 import '../../controller/ProductController.dart';
 import '../../model/FarmerProduct.dart';
+import '../../model/MyCart.dart';
+import 'MyAgriCartPage.dart';
 
 class CartPage extends StatelessWidget {
   final FarmerProduct productItem;
@@ -22,8 +24,14 @@ class CartPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: (){
+          IconButton(onPressed: () {
+
             _productController.initalRefreshFunctions();
+            _productController.fetchCartItem();
+            var carts = _productController.myCart;
+            List<MyCart> items = new List<MyCart>.from(carts);
+            Get.to(MyAgriCartPage(cartItems: items));
+
           }, icon: Icon(Icons.add_shopping_cart,color: AgriColors.primaryColor,))],
         title: Text("Product Details"),
       ),
@@ -116,6 +124,8 @@ class CartPage extends StatelessWidget {
 
                     CartItem cart = new CartItem(pid: productItem.id, subbtotal: _productController.subtotal.value, quantity:  _productController.quantity.value, userid: userid, created_at: "");
                     var out =await _productController.addCart(cart);
+
+                    _productController.initalRefreshFunctions();
                     if(out){
                       Get.snackbar("Success", "Product Added to Cart",snackPosition: SnackPosition.TOP,backgroundColor: AgriColors.primaryColor,colorText: AgriColors.whiteColor);
                       Future.delayed(Duration(seconds: 2), () {

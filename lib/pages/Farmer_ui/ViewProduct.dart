@@ -1,5 +1,6 @@
 import 'package:agrihub/Constant/agri_color.dart';
 import 'package:agrihub/pages/Farmer_ui/AddProduct.dart';
+import 'package:agrihub/pages/Farmer_ui/UpdateStock.dart';
 import 'package:agrihub/routes/agriRoute.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -68,19 +69,29 @@ class ViewProduct extends StatelessWidget {
                                   offset: Offset(0.3, 0.5)),
                             ]
                           ),
-                          child: Row(
+                          child: Column(
                             children: [
-                          Image.network(agriRoute.imageUrl+farmerUser.img,height: 100,width: 100,),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: Column(children: [
-                                  Text(farmerUser.title,style: TextStyle(fontSize: 20),),
-                                  Text("OMR. ${farmerUser.price}",style: TextStyle(fontSize: 16),),
-                                  Text("Qty: ${farmerUser.quantity}",style: TextStyle(fontSize: 16),)
-                                ],),
-                              )
-                              
-                        ],),),
+                              Row(
+                                children: [
+                              Image.network(agriRoute.imageUrl+farmerUser.img,height: 100,width: 100,),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Column(children: [
+                                      Text(farmerUser.title,style: TextStyle(fontSize: 20),),
+                                      Text("OMR. ${farmerUser.price}",style: TextStyle(fontSize: 16),),
+                                      Text("Qty: ${farmerUser.quantity}",style: TextStyle(fontSize: 16),),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: ElevatedButton(onPressed: (){
+                                          Get.to(UpdateStock(pid: farmerUser.id));
+                                        }, child: Text("Update Stock")),
+                                      )
+                                    ],),
+                                  ),
+
+                                                      ],),
+                            ],
+                          ),),
                       );
                     },
                   );

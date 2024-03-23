@@ -70,7 +70,7 @@ class Login extends StatelessWidget {
                     SizedBox(height: 10,),
                     ElevatedButton(onPressed: () async{
                       if(emailController.text=="admin@agrihub.com" && passwordController.text=="admin"){
-                        Get.to(AddAgriInfo());
+                        Get.to(Admindashboard());
                       }
                       else{
                         var result=   await AuthenticationController().AuthorisedUser(emailController.text,passwordController.text);

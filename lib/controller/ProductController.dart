@@ -122,6 +122,25 @@ Future<bool> productPurchase(String userid,String purchaseId) async{
 
   }
 }
+Future<bool> updateStock(String pid,String stockCount) async{
+
+  isLoading.value = true;
+  try{
+    var resp=  await ProductServices().stockUpdate(pid,stockCount);
+
+
+    print(resp);
+    return true;
+
+  }catch(e){
+    print("Error creating user: $e"); // Log the error
+    return false;
+  }
+  finally{
+    isLoading.value=false;
+
+  }
+}
 Future<FarmerProduct> fetchProductDetails(String productId) async{
   var resp = await ProductServices().viewProduct(productId);
   var product = jsonDecode(resp);

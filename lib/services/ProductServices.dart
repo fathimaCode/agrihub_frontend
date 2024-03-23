@@ -22,6 +22,29 @@ class ProductServices{
     }
 
   }
+  Future<String> stockUpdate(String pid,String stockCount) async {
+    try {
+      final response = await http.post(Uri.parse(agriRoute.productUrl),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'updateStock': '1',
+          'pid':pid,
+          'stockCount':stockCount,
+        }),
+      );
+
+      return response.body;
+
+
+    } catch (e) {
+
+      print('Error creating user: $e');
+      rethrow; // Re-throwing the error for the caller to handle
+    }
+
+  }
   Future<String> productListByFarmerId(String userid) async {
     try {
       final response = await http.post(Uri.parse(agriRoute.productUrl),
